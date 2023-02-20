@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Giỏ hàng trống";
+    Layout = "~/Views/Layout/_HomeLayout.cshtml";
+}
+<div class="innerf-pages section ">
+    <div class="container">
+        <div class="right-confirm col-md-7">
+            <div class="content">
+                <div class="cart-body border-bottom border-secondery">
+                    <div class="alert alert-danger">Hình như bạn chưa có sản phẩm nào?</div>
+                </div>
+                <div class="cart-footer justify-content-end d-flex mt-3">
+                    <div>
+                        <div class="total-money mb-2">
+                            <span>Tổng tiền: </span>
+                            <span class="h4">0đ</span>
+                        </div>
+
+                    </div>
+                </div>
+                <p>
+                    <a href="@Url.Action("showAllSP","SanPham")" class="btn btn-danger">
+                        <i class="fa fa-shopping-cart"></i>
+                        Shopping ngay
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

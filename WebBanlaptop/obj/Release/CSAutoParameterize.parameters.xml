@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="QLBANLAPTOPEntities-Web.config Connection String" description="QLBANLAPTOPEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.QLBANLAPTOPEntities.csdl|res://*/Models.QLBANLAPTOPEntities.ssdl|res://*/Models.QLBANLAPTOPEntities.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=SQL8002.site4now.net;Initial Catalog=db_a90926_phucmap;Persist Security Info=True;User ID=db_a90926_phucmap_admin;Password=phucmap1805;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\MONHOC\\WEB\\DOANWEB2022\\WebLaptop\\WebLaptop\\WebBanlaptop\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='QLBANLAPTOPEntities']/@connectionString" />
+  </parameter>
+</parameters>

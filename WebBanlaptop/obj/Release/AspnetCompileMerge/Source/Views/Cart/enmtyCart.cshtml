@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Giỏ hàng trống";
+    Layout = "~/Views/Layout/_HomeLayout.cshtml";
+}
+<div class="innerf-pages section ">
+    <div class="container">
+        <div class="right-confirm col-md-7">
+            <div class="content">
+                <h3>Không có sản phẩm nào trong giỏ hàng của bạn?</h3>
+                <p>
+                    <a href="@Url.Action("showAllSP","SanPham")" class="btn btn-danger">
+                        <i class="fa fa-shopping-cart"></i>
+                        Shopping ngay
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

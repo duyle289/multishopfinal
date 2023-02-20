@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Liên hệ";
+    Layout = "~/Views/Layout/_HomeLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-lg-7 mb-5">
+            <h3>Đóng góp ý kiến</h3>
+            <div class="contact-form bg-light p-30">
+                @using (Html.BeginForm("Gopy", "Home"))
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    if (TempData["AlertMessage"] != null)
+                    {
+                        <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+                            @TempData["AlertMessage"]
+                        </div>
+                    }
+                    <form>
+                        <div class="form-group">
+                            <label class="font-weight-bold">Họ tên</label>
+                            <input type="text" name="txtName" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold">Email</label>
+                            <input type="text" name="txtEmail" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold">Nội dung</label>
+                            <textarea name="txtNoidung" class="form-control"></textarea>
+                        </div>
+                        <button id="btnSend" class="btn btn-primary px-3"> Gửi <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+
+                    </form>
+
+                }
+            </div>
+        </div>
+        <div class="col-lg-5 mb-5">
+            <h3>Bản đồ liên hệ</h3>
+            <div class="bg-light p-30 mb-30">
+
+                <iframe style="width: 100%; height: 250px;"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.3352290221987!2d106.75111881471923!3d10.86208729226345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752768f8b79947%3A0xf40161ff1bbb963b!2zNDkvMWUgxJAuIFPhu5EgNywgTGluaCBUw6J5LCBUaOG7pyDEkOG7qWMsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1656501097726!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="bg-light p-30 mb-3">
+                <p class="font-weight-bold"> Tên cửa hàng: MultiShop</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Địa chỉ:49/1E, đường số 7, phường Linh Tây, thành phố Thủ Đức</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>Email:multishoplaptop@gmail.com</p>
+                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>Hotline: +84 907943574</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function() {
+        $('#side-menu').metisMenu();
+        $('#AlertBox').removeClass('hide');
+        $('#AlertBox').delay(1000).slideUp(500);
+    }
+</script>

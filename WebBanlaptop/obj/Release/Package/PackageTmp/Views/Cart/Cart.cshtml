@@ -1,0 +1,164 @@
+﻿@using WebBanlaptop.Models;
+
+@model List<Cart>
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Layout/_HomeLayout.cshtml";
+    var totalBill = 0.0;
+}
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <h3>Giỏ hàng của bạn</h3>
+            <table class="table table-light table-borderless table-hover text-center mb-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Hình ảnh</th>
+                        <th>Màu sắc</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Tổng tiền</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                    @foreach (var item in Model)
+                    {
+                        <tr id="show" class="odd">
+                            <td class="sorting_1">@item.tensp</td>
+                            <td>
+                                <a href="@Url.Action("chiTietSP","SanPham", new { id = item.masp})">
+                                    <img src="~/Content/HinhAnhSP/@item.hinhanh" width="100" alt=" " class="img-responsive">
+                                </a>
+                            </td>
+                            <td>@item.tenmau</td>
+                            @using (Html.BeginForm("capNhatSLSP", "Cart", new { @masp = item.masp, @mamau = item.mamau }))
+                            {
+                                <td class="align-middle">
+                                    <div class="input-group quantity mx-auto" style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-minus">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" name="soluong" class="form-control form-control-sm bg-secondary border-0 text-center" value="@item.soluong" min="1" max="@item.slton">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-plus">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>@item.dongia.ToString("#,000") VNĐ</td>
+                                <td>@item.tongtien.ToString("#,000") VNĐ</td>
+                                <td class="invert">
+
+                                    <abbr title="Xóa sản phẩm">
+                                        <button type="button" class="btn btn-danger modal-change-password" onclick="return confirm('Bạn có muốn xóa sản phẩm?'), location.href='@Url.Action("xoa1SPInCart", "Cart",new { @masp = item.masp, @mamau = item.mamau})'"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </abbr>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7" id="cart-next">
+                            <a href="@Url.Action("showAllSP","SanPham")" class="btn btn-info">
+                                <i class="fa fa-shopping-cart"></i>
+                                Chọn thêm sản phẩm khác
+                            </a>
+                            <abbr title="Xóa sản phẩm">
+                                <button type="button" class="btn btn-danger modal-change-password" onclick="return confirm('Bạn có muốn xóa tất cả sản phẩm trong giỏ hàng?'), location.href='@Url.Action("xoaGH", "Cart")'"><i class="fa fa-trash" aria-hidden="true"></i> Xóa giỏ hàng</button>
+                            </abbr>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <hr />
+            @*<div style="float:right">
+            </div>
+            <hr />*@
+        </div>
+        <div class="col-lg-4">
+
+            <div class="col-md-5 checkout-left-basket" style="display: inline;">
+                <h4>Thông tin khách hàng</h4>
+                @foreach (var item in Model)
+                {
+
+                    totalBill += item.tongtien;
+
+                }
+
+                @using (Html.BeginForm("DatHang", "Cart", new { strURL = Request.Url.ToString() }, FormMethod.Post))
+                {
+                    <div class="infor-customer">
+
+                        <div class="form-customer">
+                            <div class="fillinform">
+                                <input placeholder="Tên khách hàng" type="text" id="cusName" name="cusName" required="required" class="untouched pristine required phoneNumber__input">
+                                <input placeholder="Số điện thoại" type="tel" maxlength="10" id="cusPhone" name="cusPhone" required="required" class="untouched pristine required phoneNumber__input">
+                                <input placeholder="Địa chỉ nhận hàng" type="text" id="cusStreet" name="cusStreet" required="required" class="untouched pristine required phoneNumber__input">
+                                <input placeholder="Yêu cầu khác (không bắt buộc)" type="text" id="cusRequest" name="cusRequest" class="untouched pristine required phoneNumber__input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="finaltotal">
+                        <div class="total-price">
+                            <strong style=" float: left; color: #333">Tổng tiền:</strong>
+                            <strong style="float: right; color: #f30c28;">@String.Format("{0:##,#}", totalBill) VNĐ</strong>
+                        </div> <hr /><br />
+
+                        <table>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="7" id="cart-next">
+                                        <abbr>
+                                            <button type="submit" class="btn btn-danger submitorder" id="cart-btn">Tiến hành đặt hàng</button>
+                                        </abbr>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                }
+
+            </div>
+            @*@foreach (var item in Model)
+            {
+                using (Html.BeginForm("Payment", "Cart", new { @id = item.masp, strURL = Request.Url.ToString() }, FormMethod.Post))
+                {
+                    <table>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7" id="cart-next">
+                                    <abbr>
+                                        <button type="submit" class="btn btn-danger submitorder" id="cart-btn">Thanh toán VNPAY</button>
+                                    </abbr>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                }
+            }*@
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+
+
+    #cart-next {
+        text-align: right;
+    }
+
+        #cart-next a {
+            margin: 3px 5px;
+        }
+</style>
+
